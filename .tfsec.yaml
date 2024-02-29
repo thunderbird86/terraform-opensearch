@@ -1,0 +1,3 @@
+---
+# https://github.com/aquasecurity/tfsec/blob/master/docs/guides/configuration/config.md
+minimum_severity: HIGH
