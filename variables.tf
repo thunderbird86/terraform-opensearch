@@ -12,7 +12,7 @@ variable "subnet_ids" {
 variable "engine_version" {
   description = "Version of OpenSearch to deploy"
   type        = string
-  default     = "OpenSearch_2.3"
+  default     = "OpenSearch_2.11"
 }
 
 variable "advanced_security_options" {
@@ -66,7 +66,7 @@ variable "instance_type" {
 variable "access_list" {
   description = "List of CIDR which be allowed access to OpenSearch domain"
   type        = list(string)
-  default     = [
+  default = [
     "10.0.0.0/8"
   ]
 }
@@ -164,7 +164,7 @@ variable "rollback_on_disable" {
 variable "advanced_options" {
   description = "Key-value string pairs to specify advanced configuration options."
   type        = map(any)
-  default     = {
+  default = {
     "override_main_response_version" = "true"
   }
 }
@@ -257,4 +257,9 @@ variable "create_linked_role" {
   description = "Define whether you need or not create service linked role"
   type        = bool
   default     = true
+}
+
+variable "autotune" {
+  type    = string
+  default = "ENABLED"
 }

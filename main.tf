@@ -73,9 +73,13 @@ resource "aws_opensearch_domain" "this" {
     throughput = var.ebs_enabled ? var.throughput : null
   }
 
-  auto_tune_options {
-    desired_state       = var.desired_state
-    rollback_on_disable = var.rollback_on_disable
+  dynamic "auto_tune_options" {
+    for_each = var.autotune == "ENABLED" ? [1] : []
+
+    content {
+      desired_state       = var.os_autotune
+      rollback_on_disable = "NO_ROLLBACK"
+    }
   }
 
   dynamic "vpc_options" {
@@ -99,7 +103,7 @@ resource "aws_opensearch_domain_saml_options" "this" {
   domain_name = aws_opensearch_domain.this.domain_name
 
   saml_options {
-    enabled = true
+    enabled = var.saml_enabled
     idp {
       entity_id        = var.entity_id
       metadata_content = var.metadata_content
